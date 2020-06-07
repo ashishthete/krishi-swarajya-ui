@@ -1,6 +1,6 @@
 import { em } from 'csx';
 import { Dispatch, h, VNode  } from 'futura-dom';
-import { style, types } from 'typestyle';
+import { media, style, types } from 'typestyle';
 
 import * as color from 'app/lib/view/color';
 import { weight } from 'app/lib/view/font';
@@ -14,15 +14,14 @@ const _ = messages.loggedIn.menu;
 
 export const account = (account: Account, p: page.Page, dispatch: Dispatch<LogOut>) =>
   h(`nav.${styles.container}`, [
-    h(`div.${styles.title}`, [ account.name ]),
     h(`ul.${styles.items}`, [
-      menuItem(icon.users, _.account.feed, [ 'posts' ],
+      menuItem(icon.feed, _.account.feed, [ 'posts' ],
         p instanceof page.PostList),
-      menuItem(icon.users, _.account.crops, [ 'crops' ],
+      menuItem(icon.crop, _.account.crops, [ 'crops' ],
         p instanceof page.CropList),
-      menuItem(icon.cog, _.account.settings, [ 'settings' ],
+      menuItem(icon.account, _.account.settings, [ 'settings' ],
         p instanceof page.AccountSettings),
-      logout(icon.power, _.account.logOut, dispatch)
+      logout(icon.logout, _.account.logOut, dispatch)
     ])
   ]);
 
@@ -58,15 +57,20 @@ const onLogOut = (dispatch: Dispatch<LogOut>) => (event: Event) =>
 // Styles
 
 namespace styles {
+  const VIEWPORT_SLIDING_MENU = { maxWidth: em(1023 / 16) };
+
   export const container = style({
     '$nest': {
       '& + &': {
         marginTop: em(3)
       }
     },
+    'display': 'flex',
     'userSelect': 'none',
     '-webkit-user-select': 'none'
-  });
+  }, media(VIEWPORT_SLIDING_MENU, {
+    flexDirection: 'column'
+  }));
 
   export const title = style({
     fontSize: em(14 / 16),
@@ -77,10 +81,13 @@ namespace styles {
   });
 
   export const items = style({
+    display: 'flex',
     listStyle: 'none',
     margin: 0,
     padding: 0
-  });
+  }, media(VIEWPORT_SLIDING_MENU, {
+    flexDirection: 'column'
+  }));
 
   export namespace item {
     const container: types.NestedCSSProperties = {

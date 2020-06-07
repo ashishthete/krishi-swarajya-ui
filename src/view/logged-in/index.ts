@@ -105,8 +105,7 @@ namespace styles {
   export namespace content {
     const common: types.NestedCSSProperties = {
       display: 'flex',
-      flexDirection: 'row',
-      height: percent(100),
+      flexDirection: 'column',
       width: percent(100)
     };
 

@@ -58,6 +58,7 @@ export const messages: Messages = {
     },
     menu: {
       account: {
+        title: 'Krishi Swarajya',
         crops: 'पिके',
         feed: 'कृषी चर्चा',
         settings: 'सेटिंग्ज',

@@ -56,6 +56,7 @@ export const messages = {
     },
     menu: {
       account: {
+        title: 'Krishi Swarajya',
         crops: 'Crops',
         feed: 'Feed',
         settings: 'Settings',
